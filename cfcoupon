@@ -1,0 +1,52 @@
+<script>
+ /**************************
+* Copyright 2017 CF Pro Tools, All Rights Reserved
+* Do not share, or distribute this code without author's consent.
+* Author: Jaime Smith
+* Website: https://cfprotools.com
+**************************/ 
+  
+var mainProd = '';
+var promoProd1 = '';
+var promoProd2 = '';  
+var promoCode1 = ['PROMO1']; //this should always be uppercase
+var promoCode2 = ['PROMO2']; //this should always be uppercase
+
+var head = '';
+var field = '<input type=\'text\' id=\'promo_code\' name=\'promo_code\' placeholder=\'Enter promo code...\' autocomplete=\'off\' autocorrect=\'off\' autofill=\'off\' class=\'elInput elInput100 elAlign_left elInputSmall elInputStyl0 elInputBG1 elInputBR5 elInputI0 elInputIBlack elInputIRight elInputStyle1 elInputSmall garlic-auto-save\' />';
+  var message = '<span id=\'promo_code_message\' style=\'color:red;\'></span>';
+  $(document).ready(function () {
+		$('.elOrderProductOptions').last().after(head + field + message);
+  	$('.elOrderProductOptinProductName [value='+promoProd1+']').closest('.elOrderProductOptinProducts').hide();
+		$('.elOrderProductOptinProductName [value='+promoProd2+']').closest('.elOrderProductOptinProducts').hide();	
+  $('#promo_code').on('keyup', function (ev) {
+		if ($.inArray($('#promo_code').val().toUpperCase(),promoCode1) > -1) {
+			$('.elOrderProductOptinProductName [value='+promoProd1+']').click();
+			$('.elOrderProductOptinProductName [value='+mainProd+']').closest('.elOrderProductOptinProducts').hide();
+			$('.elOrderProductOptinProductName [value='+promoProd1+']').closest('.elOrderProductOptinProducts').show();
+			$('#promo_code').css({"border":"1px solid green"});
+			$('#promo_code_message').text("");
+		} else if ($.inArray($('#promo_code').val().toUpperCase(),promoCode2) > -1) {
+			$('.elOrderProductOptinProductName [value='+promoProd2+']').click();
+			$('.elOrderProductOptinProductName [value='+mainProd+']').closest('.elOrderProductOptinProducts').hide();
+			$('.elOrderProductOptinProductName [value='+promoProd2+']').closest('.elOrderProductOptinProducts').show();
+			$('#promo_code').css({"border":"1px solid green"});
+			$('#promo_code_message').text("");
+		} else {
+			$('.elOrderProductOptinProductName [value='+mainProd+']').click();
+			$('.elOrderProductOptinProductName [value='+promoProd1+']').closest('.elOrderProductOptinProducts').hide();
+			$('.elOrderProductOptinProductName [value='+promoProd2+']').closest('.elOrderProductOptinProducts').hide();
+			$('.elOrderProductOptinProductName [value='+mainProd+']').closest('.elOrderProductOptinProducts').show();
+			$('#promo_code').css({"border":"1px solid red"});
+			$('#promo_code_message').text("Please enter in a valid promo code.");
+		} 
+    
+    	 
+    if($('input[name="promo_code"]').val() == '') {
+      	$('#promo_code').css({"border":"inherit"});
+      	$('#promo_code_message').text('');
+    }
+      
+	});
+});
+</script>
